@@ -279,6 +279,24 @@ select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padd
 
 <script>
   // change page
+  function changePage(){
+  playClick();
+  setTimeout(()=> {
+    const diff = document.getElementById('difficulty').value;
+    if(!diff){ 
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.style.display = 'block';
+      setTimeout(() => {
+        errorMsg.style.display = 'none';
+      }, 3000);
+      return; 
+    }
+    if(diff==='Easy') location.href='test1.html';
+    else if(diff==='Medium') location.href='test3.html';
+    else if(diff==='Hard') location.href='test4.html';
+  },350);
+}
+
   
 </script>
 </body>
