@@ -113,6 +113,51 @@ body{
   justify-content:center;
   position:relative;
 }
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  width:100%;
+  max-width:800px;
+}
+.card{
+  perspective:1000px;
+  aspect-ratio:3/2;
+  width:100%;
+  cursor:pointer;
+}
+
+.card:hover{transform:scale(1.05)}
+.card-inner{
+  width:100%; height:100%;
+  position:relative;
+  border-radius:15px;
+  transform-style:preserve-3d;
+  transition:transform .5s;
+}
+.card.flipped .card-inner{transform:rotateY(180deg)}
+.card-front,.card-back{
+  position:absolute;
+  inset:0;
+  border-radius:15px;
+  backface-visibility:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
+  font-weight:bold;
+}
+.card-front{
+  background: linear-gradient(180deg, #f53434, #090c38);
+  color:#fff;
+}
+.card-back{
+  background:#fff;
+  border:3px solid #1a5568;
+  transform:rotateY(180deg);
+  color:#1a5568;
+}
 </style>
 </head>
 
