@@ -938,6 +938,31 @@ function startGame(){
   });
 }
 
+function startTimer(){
+  timerId = setInterval(()=>{
+    time--;
+    timerEl.textContent = time;
+    if(time <= 0){
+      clearInterval(timerId);
+      lock = true;
+      showGameOver(); // 🎮 Changed from alert to popup
+    }
+  },1000);
+}
+
+// 🎮 NEW: Show game over popup
+function showGameOver(){
+  document.getElementById("final-score").textContent = score;
+  document.getElementById("gameover-popup").style.display = "flex";
+}
+
+// 🎮 NEW: Close game over popup
+function closeGameOver(){
+  playClick();
+  document.getElementById("gameover-popup").style.display = "none";
+}
+
+
 </script>
 
 </body>
