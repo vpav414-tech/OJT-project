@@ -535,6 +535,230 @@ body{
     font-size: 28px;
   }
 }
+
+ /* Bottom Section - Buttons */
+  .mobile-buttons {
+    order: 3;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .mobile-buttons .button-sm {
+    display: block;
+    flex: 1;
+    max-width: 150px;
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .mobile-buttons .icon {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+  
+  .key-btn {
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+  }
+  
+  #setting-popup .box, #gameover-popup .box {
+    width: 90%;
+    max-width: 280px;
+    padding: 1.5rem 1.5rem;
+  }
+  
+  #setting-popup h3, #gameover-popup h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  #popupBox {
+    min-width: 280px;
+    padding: 2rem 1.5rem;
+  }
+
+
+/* 375px - Medium Mobile */
+@media (min-width: 375px) and (max-width: 424px) {
+  body {
+    padding: 12px;
+  }
+  
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 18px;
+    padding-top: 25px;
+  }
+  
+  .sidebar {
+    order: 1;
+    padding: 18px;
+    gap: 12px;
+  }
+  
+  .btn-primary {
+    padding: 16px;
+    font-size: 20px;
+  }
+  
+  #search {
+    padding: 13px;
+    font-size: 14px;
+  }
+  
+  .info {
+    padding: 11px 13px;
+    font-size: 13px;
+  }
+  
+  .button-sm, .spacer, .icons {
+    display: none;
+  }
+  
+  .game-area {
+    order: 2;
+    padding: 20px 12px;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .card-back, .card-front {
+    font-size: 32px;
+  }
+  
+  .mobile-buttons {
+    order: 3;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .mobile-buttons .button-sm {
+    display: block;
+    flex: 1;
+    max-width: 160px;
+    padding: 13px;
+    font-size: 15px;
+  }
+  
+  .mobile-buttons .icon {
+    display: flex;
+    width: 52px;
+    height: 52px;
+    font-size: 24px;
+  }
+  
+  .key-btn {
+    width: 44px;
+    height: 44px;
+    top: 12px;
+    right: 12px;
+  }
+  
+  #setting-popup .box, #gameover-popup .box {
+    width: 90%;
+    max-width: 320px;
+    padding: 2rem 2rem;
+  }
+  
+  #popupBox {
+    min-width: 320px;
+  }
+}
+
+/* 425px - Large Mobile */
+@media (min-width: 425px) and (max-width: 767px) {
+  body {
+    padding: 15px;
+  }
+  
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 20px;
+    padding-top: 30px;
+  }
+  
+  .sidebar {
+    order: 1;
+    padding: 20px;
+    gap: 14px;
+  }
+  
+  .btn-primary {
+    padding: 18px;
+    font-size: 21px;
+  }
+  
+  .button-sm, .spacer, .icons {
+    display: none;
+  }
+  
+  .game-area {
+    order: 2;
+    padding: 25px 15px;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  
+  .card-back, .card-front {
+    font-size: 35px;
+  }
+  
+  .mobile-buttons {
+    order: 3;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .mobile-buttons .button-sm {
+    display: block;
+    flex: 1;
+    max-width: 180px;
+    padding: 14px;
+    font-size: 16px;
+  }
+  
+  .mobile-buttons .icon {
+    display: flex;
+    width: 54px;
+    height: 54px;
+    font-size: 26px;
+  }
+  
+  #setting-popup .box, #gameover-popup .box {
+    width: 90%;
+    max-width: 350px;
+  }
+}
+
+/* Show mobile buttons only on mobile */
+.mobile-buttons {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-buttons {
+    display: flex !important;
+  }
+}
 </style>
 </head>
 
