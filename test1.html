@@ -1034,6 +1034,72 @@ function closeset(){
 loadBest();
 startGame();
 
+/* -----------------------------------------------------
+   THEME SYSTEM
+   ----------------------------------------------------- */
+
+const themeSets = {
+  animal: ["🐶","🐱","🦊","🐶","🐱","🦊"],
+  fruit:  ["🍎","🍉","🍌","🍎","🍉","🍌"],
+  emoji:  ["😀","😂","😍","😀","😂","😍"],
+};
+
+const suggestionBox = document.getElementById("suggestion");
+const search = document.getElementById("search");
+
+function applyTheme(themeicons){
+  const t = themeSets[themeicons];
+
+  baseVals[0] = t[0];
+  baseVals[1] = t[1];
+  baseVals[2] = t[2];
+  baseVals[3] = t[3];
+  baseVals[4] = t[4];
+  baseVals[5] = t[5];
+
+  suggestionBox.style.display = "none";
+  startGame();
+}
+
+function handleThemeSearch(){
+  const text = search.value.toLowerCase();
+  suggestionBox.innerHTML = "";
+
+  if(text === ""){
+    suggestionBox.style.display = "";
+    return;
+  }
+
+  if(text === "a" || text === "an" || text === "ani" || text === "anima" || text === "animal"){
+    suggestionBox.style.display = "block";
+    suggestionBox.textContent = "animals";
+    suggestionBox.addEventListener("click",function(){applyTheme("animal")})
+    return;
+  }
+
+  if(text === "f" || text === "fr" || text === "fru" ||text ==="frui"| text === "fruit"){
+    suggestionBox.style.display = "block";
+    suggestionBox.textContent = "fruit";
+    suggestionBox.addEventListener("click",function(){applyTheme("fruit")}) };
+    return;
+  
+
+  if(text === "e" || text === "em" || text === "emo" || text === "emoji"){
+    suggestionBox.style.display = "block";
+    suggestionBox.textContent = "emoji";
+    suggestionBox.addEventListener("click",function(){"emoji"}) 
+    return;
+  };
+  
+
+  suggestionBox.style.display = "none";
+}
+
+search.addEventListener("input", handleThemeSearch);
+
+
+
+
 
 </script>
 
