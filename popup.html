@@ -297,6 +297,19 @@ select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padd
   },350);
 }
 
+function openset(){ document.getElementById('setting-popup').style.display='flex'; }
+function closeset(){ document.getElementById('setting-popup').style.display='none'; }
+
+const music = document.getElementById('bg-music');
+const musicCheckbox = document.getElementById('music-checkbox');
+musicCheckbox.addEventListener('change', ()=> musicCheckbox.checked ? music.play().catch(()=>{}) : music.pause());
+
+const clickSound = document.getElementById('clickSound');
+const ss = document.getElementById('ss');
+function playClick(){ if(ss && ss.checked){ try{ clickSound.currentTime=0 }catch{} clickSound.play().catch(()=>{}); } }
+
+
+
   
 </script>
 </body>
