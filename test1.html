@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flip to Match – Level 1</title>
+<style>
+
+
+</style>
+</head>
+
+<body>
+
+
+    <!-- ⭐ Floating Key Bindings Button -->
+<button class="key-btn" onclick="showKeyHelp()">⌨</button>
+
+<!-- KEY HELP POPUP -->
+<div id="key-help">
+  <strong>KEY BINDINGS</strong><br>
+  S = Settings • C = Close<br>
+  D = Difficulty • Enter = Start
+</div>
+
+<div class="container">
+  <div class="sidebar">
+    <button class="btn-primary">FLIP TO MATCH</button>
+
+    <input type="text" id="search" placeholder="search your favourite theme...">
+    <div id="suggestion"></div>
+
+    <div class="info">Timer: <span id="timer">20</span>s</div>
+    <div class="info">Score: <span id="score">0</span></div>
+    <div class="info">Best: <span id="best">0</span></div>
+
+    <button id="reset" class="button-sm" onclick="reset()">Reset</button>
+
+    <div class="spacer"></div>
+    <div class="icons">
+      <div class="icon" onclick="changePage();playClick()">🏠</div>
+      <div class="icon" onclick="openset() ; playClick()">⚙</div>
+    </div>
+  </div>
+
+  <div class="game-area">
+    <div class="card-grid">
+      <div class="card"><div class="card-inner"><div class="card-front">?</div><div class="card-back"></div></div></div>
+      <div class="card"><div class="card-inner"><div class="card-front">?</div><div class="card-back"></div></div></div>
+      <div class="card"><div class="card-inner"><div class="card-front">?</div><div class="card-back"></div></div></div>
+      <div class="card"><div class="card-inner"><div class="card-front">?</div><div class="card-back"></div></div></div>
+      <div class="card"><div class="card-inner"><div class="card-front">?</div><div class="card-back"></div></div></div>
+      <div class="card"><div class="card-inner"><div class="card-front">?</div><div class="card-back"></div></div></div>
+    </div>
+
+    <!-- Settings popup -->
+    <div id="setting-popup">
+      <div class="box">
+        <h3>Settings</h3>
+        <label>
+          <input type="checkbox" id="ss">
+          <span>Sound Effects</span>
+        </label>
+        <label>
+          <input type="checkbox" id="music-checkbox">
+          <span>Background Music</span>
+        </label>
+        <button onclick="closeset() ; playClick()">CLOSE</button>
+      </div>
+    </div>
+
+    <!-- 🎮 NEW: Game Over Popup -->
+    <div id="gameover-popup">
+      <div class="box">
+        <h3>Time's Up!</h3>
+        <p class="gameover-message">Final Score: <span id="final-score">0</span></p>
+        <button onclick="closeGameOver(); reset();">TRY AGAIN</button>
+      </div>
+    </div>
+
+<!-- background music -->
+    <audio id="bg-music" loop>
+  <source src="./back.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- clickSound -->
+<audio id="clickSound" >
+  <source src="./click.mp3" type="audio/mpeg">
+</audio>
+
+
+  </div>
+
+  <!-- 📱 ADDED: Mobile Bottom Buttons Section -->
+  <div class="mobile-buttons">
+    <button class="button-sm" onclick="reset()">Reset</button>
+    <div class="icon" onclick="changePage();playClick()">🏠</div>
+    <div class="icon" onclick="openset() ; playClick()">⚙</div>
+  </div>
+
+</div>
+
+<div id="popup">
+  <div id="popupBox">
+    <p id="popupText"></p>
+    <button id="nextBtn" onclick="next()">Next level</button>
+  </div>
+</div>
+
+
+<script>
+function changePage(){ 
+  playClick();
+  setTimeout(function(){
+  window.location.href="popup.html"; 
+  },350)
+ 
+}
+
+const cards   = [...document.querySelectorAll(".card")];
+const backs   = [...document.querySelectorAll(".card-back")];
+const scoreEl = document.getElementById("score");
+const timerEl = document.getElementById("timer");
+const bestEl  = document.getElementById("best");
+const popup   = document.getElementById("popup");
+const popupText = document.getElementById("popupText");
+const nextBtn = document.getElementById("nextBtn");
+const resetBtn= document.getElementById("reset");
+const baseVals = ["A","B","C","A","B","C"];
+const BEST_KEY = "flip_best_easy";
+
+let first=null, second=null, lock=false;
+let score=0, matched=0;
+let timeLimit = 20;
+let time = timeLimit;
+let timerId=null, timerStarted=false;
+let lastScore=null;
+let bestScore=0;
+
+function updateBest(){
+  if(score > bestScore){
+    bestScore=score;
+    localStorage.setItem(BEST_KEY, bestScore);
+  }
+  bestEl.textContent = bestScore;
+}
+
+function loadBest(){
+  const b = parseInt(localStorage.getItem(BEST_KEY) || "0",10);
+  if (isNaN(b)){ bestScore = 0; }
+  else{ bestScore = b; }
+  bestEl.textContent = bestScore;
+}
+function shuffleCards(){
+  const vals=[...baseVals];
+  for(let i=vals.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [vals[i],vals[j]]=[vals[j],vals[i]];
+  }
+  backs.forEach((b,i)=>b.textContent = vals[i]);
+}
+
+function startGame(){
+  clearInterval(timerId);
+  timerStarted = false;
+  score = 0;
+  matched = 0;
+  time = timeLimit;
+  first = second = null;
+  lock = false;
+  lastScore = null;
+  scoreEl.textContent = score;
+  timerEl.textContent = time;
+  shuffleCards();
+  cards.forEach(c=>{
+    c.classList.remove("flipped","wrong");
+    c.onclick = flip;
+  });
+}
+
+function startTimer(){
+  timerId = setInterval(()=>{
+    time--;
+    timerEl.textContent = time;
+    if(time <= 0){
+      clearInterval(timerId);
+      lock = true;
+      showGameOver(); // 🎮 Changed from alert to popup
+    }
+  },1000);
+}
+
+// 🎮 NEW: Show game over popup
+function showGameOver(){
+  document.getElementById("final-score").textContent = score;
+  document.getElementById("gameover-popup").style.display = "flex";
+}
+
+// 🎮 NEW: Close game over popup
+function closeGameOver(){
+  playClick();
+  document.getElementById("gameover-popup").style.display = "none";
+}
+
+function flip(){
+  if(lock || this.classList.contains("flipped")) return;
+  if(!timerStarted){
+    timerStarted = true;
+    startTimer();
+  }
+  this.classList.add("flipped");
+  if(!first){
+    first = this;
+    return;
+  }
+  second = this;
+  lock = true;
+  checkMatch();
+}
+
+function val(card){
+  return card.querySelector(".card-back").textContent.trim();
+}
+
+function checkMatch(){
+  lastScore = score;
+  if(val(first) === val(second)){
+    score += 10;
+    matched += 2;
+    first.onclick = second.onclick = null;
+    lastScore = null;
+    resetTurn();
+    if(matched === cards.length) win();
+  }else{
+    score = Math.max(0, score - 5);
+    first.classList.add("wrong");
+    second.classList.add("wrong");
+    setTimeout(()=>{
+      first.classList.remove("flipped","wrong");
+      second.classList.remove("flipped","wrong");
+      resetTurn();
+    },600);
+  }
+  scoreEl.textContent = score;
+}
+function resetTurn(){ first=null; second=null; lock=false; }
+
+function win(){
+  clearInterval(timerId);
+  lock = true;
+  updateBest();
+  popupText.textContent = "Level complete! Score: " + score;
+  popup.style.display = "flex";
+}
+function next(){ playClick()
+  setTimeout(function(){
+    popup.style.display = "none";
+    window.location.href = "test3.html";
+  },350)}
+
+function reset(){
+  playClick();
+  popup.style.display = "none";
+  startGame();
+};
+
+function openset(){
+  document.getElementById("setting-popup").style.display ="flex";
+}
+function closeset(){
+  document.getElementById("setting-popup").style.display ="none";
+}
+
+loadBest();
+startGame();
+
+/* -----------------------------------------------------
+   THEME SYSTEM
+   ----------------------------------------------------- */
+
+const themeSets = {
+  animal: ["🐶","🐱","🦊","🐶","🐱","🦊"],
+  fruit:  ["🍎","🍉","🍌","🍎","🍉","🍌"],
+  emoji:  ["😀","😂","😍","😀","😂","😍"],
+};
+
+const suggestionBox = document.getElementById("suggestion");
+const search = document.getElementById("search");
+
+function applyTheme(themeicons){
+  const t = themeSets[themeicons];
+
+  baseVals[0] = t[0];
+  baseVals[1] = t[1];
+  baseVals[2] = t[2];
+  baseVals[3] = t[3];
+  baseVals[4] = t[4];
+  baseVals[5] = t[5];
+
+  suggestionBox.style.display = "none";
+  startGame();
+}
+
+function handleThemeSearch(){
+  const text = search.value.toLowerCase();
+  suggestionBox.innerHTML = "";
+
+  if(text === ""){
+    suggestionBox.style.display = "";
+    return;
+  }
+
+  if(text === "a" || text === "an" || text === "ani" || text === "anima" || text === "animal"){
+    suggestionBox.style.display = "block";
+    suggestionBox.textContent = "animals";
+    suggestionBox.addEventListener("click",function(){applyTheme("animal")})
+    return;
+  }
+
+  if(text === "f" || text === "fr" || text === "fru" ||text ==="frui"| text === "fruit"){
+    suggestionBox.style.display = "block";
+    suggestionBox.textContent = "fruit";
+    suggestionBox.addEventListener("click",function(){applyTheme("fruit")}) };
+    return;
+  
+
+  if(text === "e" || text === "em" || text === "emo" || text === "emoji"){
+    suggestionBox.style.display = "block";
+    suggestionBox.textContent = "emoji";
+    suggestionBox.addEventListener("click",function(){"emoji"}) 
+    return;
+  };
+  
+
+  suggestionBox.style.display = "none";
+}
+
+search.addEventListener("input", handleThemeSearch);
+
+/* -----------------------------------------------------
+   SOUND SYSTEM
+   ----------------------------------------------------- */
+
+let music = document.getElementById("bg-music");
+let musicCheckbox = document.getElementById("music-checkbox");
+
+musicCheckbox.addEventListener('change', function(){
+  if (musicCheckbox.checked) {
+    music.play();
+  } else {
+    music.pause();
+  
+  }
+
+})
+const clickSound =document.getElementById("clickSound")
+const ss = document.getElementById("ss")
+function playClick(){
+  if(ss.checked){
+    clickSound.play()
+  }
+  else { 
+    clickSound.pause()
+  }
+}
+
+/* -----------------------------------------------------
+   KEY BINDINGS
+   ----------------------------------------------------- */
+
+document.addEventListener("keydown", function(e){
+
+  if(e.key === "h" || e.key === "H"){
+    changePage();
+    playClick();
+  }
+
+  if(e.key === "s" || e.key === "S"){
+    playClick();
+    setTimeout(function(){ openset()},150)
+   }
+
+  if(e.key === "c" || e.key === "C"){
+    playClick()
+    setTimeout(function(){closeset()},150) 
+  }
+  if(e.key === "r" || e.key === "R"){
+
+    setTimeout(function(){reset()},150) 
+  }
+  if(e.key === "Enter"){
+
+    setTimeout(function(){next()},150) 
+  }
+  
+});
+
+
+
+
+/* --- Key Help System --- */
+const help = document.getElementById("key-help");
+
+function showKeyHelp(){
+  help.classList.add("show");
+  setTimeout(()=>help.classList.remove("show"),3000);
+}
+
+window.onload = () => {
+  help.classList.add("show");
+  setTimeout(() => help.classList.remove("show"), 5000);
+};
+
+
+
+
+</script>
+
+</body>
+</html>

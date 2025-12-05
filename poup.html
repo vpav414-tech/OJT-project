@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Memory Game</title>
+<style>
+  
+</style>
+</head>
+<body>
+
+<!-- key bindings help -->
+<div id="key-help" role="status" aria-live="polite" aria-atomic="true">
+  <strong>KEY BINDINGS</strong>
+  <div>S → Open Settings • C → Close Settings</div>
+  <div>D → Open Difficulty • ENTER → Start Game</div>
+</div>
+
+<div class="container">
+  <button class="key-btn" aria-label="Show key bindings" onclick="showKeyHelp()">⌨</button>
+  <button class="settings" onclick="openset();playClick()" aria-label="Settings">⚙</button>
+
+  <div id="setting-popup">
+    <div class="box">
+      <h3>Settings</h3>
+      <label><input id="ss" type="checkbox"> Sound</label>
+      <label><input id="music-checkbox" type="checkbox"> Music</label>
+      <button onclick="closeset();playClick()">CLOSE</button>
+    </div>
+  </div>
+
+  <h1>Memory Game</h1>
+
+  <div class="controls">
+    <button onclick="changePage();playClick()">Start Game</button>
+    <select id="difficulty" onchange="playClick()">
+      <option value="">Select your difficulty</option>
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Hard">Hard</option>
+    </select>
+    <!-- ADDED: Error message div with exclamation icon and text -->
+    <!-- MODIFIED: Changed warning triangle emoji to circled exclamation mark -->
+    <div id="error-msg">
+      <div class="icon">❗</div>
+      <div class="text">Please select your difficulty</div>
+    </div>
+  </div>
+</div>
+
+<audio id="bg-music" loop><source src="./back.mp3" type="audio/mpeg"></audio>
+<audio id="clickSound"><source src="./click.mp3" type="audio/mpeg"></audio>
+
+<script>
+  // change page
+  function changePage(){
+  playClick();
+  setTimeout(()=> {
+    const diff = document.getElementById('difficulty').value;
+    if(!diff){ 
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.style.display = 'block';
+      setTimeout(() => {
+        errorMsg.style.display = 'none';
+      }, 3000);
+      return; 
+    }
+    if(diff==='Easy') location.href='test1.html';
+    else if(diff==='Medium') location.href='test3.html';
+    else if(diff==='Hard') location.href='test4.html';
+  },350);
+}
+
+function openset(){ document.getElementById('setting-popup').style.display='flex'; }
+function closeset(){ document.getElementById('setting-popup').style.display='none'; }
+
+const music = document.getElementById('bg-music');
+const musicCheckbox = document.getElementById('music-checkbox');
+musicCheckbox.addEventListener('change', ()=> musicCheckbox.checked ? music.play().catch(()=>{}) : music.pause());
+
+const clickSound = document.getElementById('clickSound');
+const ss = document.getElementById('ss');
+function playClick(){ if(ss && ss.checked){ try{ clickSound.currentTime=0 }catch{} clickSound.play().catch(()=>{}); } }
+
+
+
+const help = document.getElementById("key-help");
+
+function showKeyHelp(){
+  help.classList.add("show");
+  setTimeout(()=>help.classList.remove("show"),3000);
+}
+
+window.onload = () => {
+  help.classList.add("show");
+  setTimeout(() => help.classList.remove("show"), 5000);
+};
+
+/* --- Your full game logic remains exactly the same --- */
+/* (I am not removing anything) */
+
+/* Your entire JS block remains unchanged below… */
+
+document.addEventListener("keydown", function(e){
+
+
+  if(e.key === "s" || e.key === "S"){
+    playClick();
+    setTimeout(function(){ openset()},150)
+   }
+
+  if(e.key === "c" || e.key === "C"){
+    playClick()
+    setTimeout(function(){closeset()},150) 
+  }
+  if(e.key === "d"){
+
+   
+    document.getElementById('difficulty')?.showPicker();
+  }
+  if(e.key === "Enter"){
+
+    setTimeout(function(){changePage()},150) 
+  }
+  
+});
+
+
+
+  
+</script>
+</body>
+</html>
