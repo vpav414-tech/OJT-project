@@ -91,6 +91,17 @@ button,select{
 button{background:#000;color:#ff3333;font-size:16px}button:hover{background:#111}
 select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padding-right:40px}
   
+  /* popup - MODIFIED: Changed background to red and black theme, added border, styled heading and labels */
+#setting-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:1000}
+#setting-popup .box{background:linear-gradient(197deg,#130553,#5a1e1e);padding:20px;border-radius:10px;border:3px solid #000;text-align:center;max-width:90%;width:300px}
+#setting-popup .box h3{color:#d53030;margin-bottom:16px;font-size:22px}
+#setting-popup .box label{color:#fff;font-size:15px;display:block;margin-bottom:12px}
+#setting-popup .box input[type="checkbox"]{margin-right:8px;cursor:pointer}
+
+/* ADDED: Error message styling for difficulty selection warning */
+#error-msg{display:none;margin-top:16px;text-align:center}
+#error-msg .icon{font-size:48px;color:#ff3333;margin-bottom:8px}
+#error-msg .text{color:#ff3333;font-weight:700;font-size:15px}
 </style>
 </head>
 <body>
