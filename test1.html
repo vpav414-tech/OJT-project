@@ -1003,6 +1003,36 @@ function checkMatch(){
   }
   scoreEl.textContent = score;
 }
+function resetTurn(){ first=null; second=null; lock=false; }
+
+function win(){
+  clearInterval(timerId);
+  lock = true;
+  updateBest();
+  popupText.textContent = "Level complete! Score: " + score;
+  popup.style.display = "flex";
+}
+function next(){ playClick()
+  setTimeout(function(){
+    popup.style.display = "none";
+    window.location.href = "test3.html";
+  },350)}
+
+function reset(){
+  playClick();
+  popup.style.display = "none";
+  startGame();
+};
+
+function openset(){
+  document.getElementById("setting-popup").style.display ="flex";
+}
+function closeset(){
+  document.getElementById("setting-popup").style.display ="none";
+}
+
+loadBest();
+startGame();
 
 
 </script>
