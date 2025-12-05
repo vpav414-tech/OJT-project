@@ -5,6 +5,91 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Memory Game</title>
 <style>
+  *{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:Arial,Helvetica,sans-serif}
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  background:url(./neon.jpg) center/cover no-repeat;
+  overflow:auto
+}
+
+/* key-help */
+#key-help{
+  position:fixed;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%) translateY(-8px);
+  background:rgba(0,0,0,.78);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:13px;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  z-index:9999;
+  transition:opacity .28s,transform .28s;
+  max-width:92%}
+#key-help.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* container - Desktop default */
+.container{
+  position:relative;
+  width:min(92%,420px);
+  max-width:350px;
+  border:6px solid #000;
+  border-radius:18px;
+  padding:4.5rem 2rem 5rem;
+  background:rgba(255,255,255,0.02);
+  box-shadow:0 20px 36px rgba(0,0,0,.25)}
+
+/* left key button + right settings */
+.key-btn,.settings{
+  position:absolute;
+  top:14px;
+  width:48px;
+  height:48px;
+  border:3px solid #000;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#fff}
+.key-btn{
+  left:14px;
+  background: linear-gradient(45deg, #660e0e, #0c154b);
+  font-size:18px;z-index:11}
+.settings{right:14px;background:linear-gradient(45deg,#6d1313,transparent);font-size:22px;z-index:10}
+
+/* heading & controls */
+h1{
+  text-align:center;
+  margin-bottom:4.8rem;
+  padding:14px 20px;
+  border-radius:10px;
+  background:linear-gradient(197deg,#130553,#5a1e1e);
+  color:#d53030;
+  font-weight:800;
+  font-size:clamp(20px,4vw,32px)}
+.controls{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:center}
+button,select{
+  width:100%;
+  max-width:250px;
+  padding:12px 18px;
+  border-radius:10px;
+  border:3px solid #000;
+  font-weight:800;
+  cursor:pointer}
+button{background:#000;color:#ff3333;font-size:16px}button:hover{background:#111}
+select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padding-right:40px}
   
 </style>
 </head>
