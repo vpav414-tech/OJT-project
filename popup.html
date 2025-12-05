@@ -308,17 +308,8 @@ const clickSound = document.getElementById('clickSound');
 const ss = document.getElementById('ss');
 function playClick(){ if(ss && ss.checked){ try{ clickSound.currentTime=0 }catch{} clickSound.play().catch(()=>{}); } }
 
-/* keys */
-document.addEventListener('keydown', function(e){
-  const tag = document.activeElement && document.activeElement.tagName;
-  if(tag==='INPUT' || tag==='SELECT' || tag==='TEXTAREA') return;
 
-  if(e.key === 'Enter'){ showTip('Starting Game'); setTimeout(changePage,150); }
-  else if(e.key.toLowerCase()==='s'){ showTip('Opening Settings'); playClick(); setTimeout(openset,150); }
-  else if(e.key.toLowerCase()==='c'){ showTip('Closing Settings'); playClick(); setTimeout(closeset,150); }
-  else if(e.key.toLowerCase()==='d'){ showTip('Opening Difficulty'); const dd=document.getElementById('difficulty'); if(dd.showPicker) dd.showPicker(); }
-});
-/* --- Key Help System --- */
+
 const help = document.getElementById("key-help");
 
 function showKeyHelp(){
@@ -335,6 +326,32 @@ window.onload = () => {
 /* (I am not removing anything) */
 
 /* Your entire JS block remains unchanged below… */
+
+document.addEventListener("keydown", function(e){
+
+
+  if(e.key === "s" || e.key === "S"){
+    playClick();
+    setTimeout(function(){ openset()},150)
+   }
+
+  if(e.key === "c" || e.key === "C"){
+    playClick()
+    setTimeout(function(){closeset()},150) 
+  }
+  if(e.key === "d"){
+
+   
+    document.getElementById('difficulty')?.showPicker();
+  }
+  if(e.key === "Enter"){
+
+    setTimeout(function(){changePage()},150) 
+  }
+  
+});
+
+
 
   
 </script>
