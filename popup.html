@@ -102,6 +102,42 @@ select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padd
 #error-msg{display:none;margin-top:16px;text-align:center}
 #error-msg .icon{font-size:48px;color:#ff3333;margin-bottom:8px}
 #error-msg .text{color:#ff3333;font-weight:700;font-size:15px}
+
+/* Mobile Responsive Styles */
+/* 320px - Small Mobile */
+@media (max-width: 374px) {
+  body {
+    padding: 0;
+    align-items: stretch;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    border-radius: 0;
+    border: none;
+    padding: 5rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .key-btn, .settings {
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    font-size: 16px;
+  }
+  
+  .key-btn {
+    left: 10px;
+  }
+  
+  .settings {
+    right: 10px;
+  }
 </style>
 </head>
 <body>
