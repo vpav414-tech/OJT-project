@@ -962,6 +962,48 @@ function closeGameOver(){
   document.getElementById("gameover-popup").style.display = "none";
 }
 
+function flip(){
+  if(lock || this.classList.contains("flipped")) return;
+  if(!timerStarted){
+    timerStarted = true;
+    startTimer();
+  }
+  this.classList.add("flipped");
+  if(!first){
+    first = this;
+    return;
+  }
+  second = this;
+  lock = true;
+  checkMatch();
+}
+
+function val(card){
+  return card.querySelector(".card-back").textContent.trim();
+}
+
+function checkMatch(){
+  lastScore = score;
+  if(val(first) === val(second)){
+    score += 10;
+    matched += 2;
+    first.onclick = second.onclick = null;
+    lastScore = null;
+    resetTurn();
+    if(matched === cards.length) win();
+  }else{
+    score = Math.max(0, score - 5);
+    first.classList.add("wrong");
+    second.classList.add("wrong");
+    setTimeout(()=>{
+      first.classList.remove("flipped","wrong");
+      second.classList.remove("flipped","wrong");
+      resetTurn();
+    },600);
+  }
+  scoreEl.textContent = score;
+}
+
 
 </script>
 
