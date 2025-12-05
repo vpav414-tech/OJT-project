@@ -869,6 +869,33 @@ body{
 
 
 <script>
+function changePage(){ 
+  playClick();
+  setTimeout(function(){
+  window.location.href="popup.html"; 
+  },350)
+ 
+}
+
+const cards   = [...document.querySelectorAll(".card")];
+const backs   = [...document.querySelectorAll(".card-back")];
+const scoreEl = document.getElementById("score");
+const timerEl = document.getElementById("timer");
+const bestEl  = document.getElementById("best");
+const popup   = document.getElementById("popup");
+const popupText = document.getElementById("popupText");
+const nextBtn = document.getElementById("nextBtn");
+const resetBtn= document.getElementById("reset");
+const baseVals = ["A","B","C","A","B","C"];
+const BEST_KEY = "flip_best_easy";
+
+let first=null, second=null, lock=false;
+let score=0, matched=0;
+let timeLimit = 20;
+let time = timeLimit;
+let timerId=null, timerStarted=false;
+let lastScore=null;
+let bestScore=0;
 
 </script>
 
