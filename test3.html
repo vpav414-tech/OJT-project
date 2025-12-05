@@ -804,6 +804,7 @@ function showGameOver(){
 function closeGameOver(){
   playClick();
   document.getElementById("gameover-popup").style.display = "none";
+  
 }
 function flip(){
   if(lock || this.classList.contains("flipped")) return;
@@ -874,6 +875,7 @@ function next(){ playClick()
 function reset(){
   playClick();
   popup.style.display = "none";
+ resetTurn();
   startGame();
 };
 
@@ -997,8 +999,8 @@ function playClick(){
 document.addEventListener("keydown", function(e){
 
   if(e.key === "h" || e.key === "H"){
-    changePage();
     playClick();
+    setTimeout(function(){goHome()},150);
   }
 
   if(e.key === "s" || e.key === "S"){
