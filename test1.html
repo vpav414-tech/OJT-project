@@ -1097,6 +1097,79 @@ function handleThemeSearch(){
 
 search.addEventListener("input", handleThemeSearch);
 
+/* -----------------------------------------------------
+   SOUND SYSTEM
+   ----------------------------------------------------- */
+
+let music = document.getElementById("bg-music");
+let musicCheckbox = document.getElementById("music-checkbox");
+
+musicCheckbox.addEventListener('change', function(){
+  if (musicCheckbox.checked) {
+    music.play();
+  } else {
+    music.pause();
+  
+  }
+
+})
+const clickSound =document.getElementById("clickSound")
+const ss = document.getElementById("ss")
+function playClick(){
+  if(ss.checked){
+    clickSound.play()
+  }
+  else { 
+    clickSound.pause()
+  }
+}
+
+/* -----------------------------------------------------
+   KEY BINDINGS
+   ----------------------------------------------------- */
+
+document.addEventListener("keydown", function(e){
+
+  if(e.key === "h" || e.key === "H"){
+    changePage();
+    playClick();
+  }
+
+  if(e.key === "s" || e.key === "S"){
+    playClick();
+    setTimeout(function(){ openset()},150)
+   }
+
+  if(e.key === "c" || e.key === "C"){
+    playClick()
+    setTimeout(function(){closeset()},150) 
+  }
+  if(e.key === "r" || e.key === "R"){
+
+    setTimeout(function(){reset()},150) 
+  }
+  if(e.key === "Enter"){
+
+    setTimeout(function(){next()},150) 
+  }
+  
+});
+
+
+
+
+/* --- Key Help System --- */
+const help = document.getElementById("key-help");
+
+function showKeyHelp(){
+  help.classList.add("show");
+  setTimeout(()=>help.classList.remove("show"),3000);
+}
+
+window.onload = () => {
+  help.classList.add("show");
+  setTimeout(() => help.classList.remove("show"), 5000);
+};
 
 
 
