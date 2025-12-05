@@ -318,7 +318,23 @@ document.addEventListener('keydown', function(e){
   else if(e.key.toLowerCase()==='c'){ showTip('Closing Settings'); playClick(); setTimeout(closeset,150); }
   else if(e.key.toLowerCase()==='d'){ showTip('Opening Difficulty'); const dd=document.getElementById('difficulty'); if(dd.showPicker) dd.showPicker(); }
 });
+/* --- Key Help System --- */
+const help = document.getElementById("key-help");
 
+function showKeyHelp(){
+  help.classList.add("show");
+  setTimeout(()=>help.classList.remove("show"),3000);
+}
+
+window.onload = () => {
+  help.classList.add("show");
+  setTimeout(() => help.classList.remove("show"), 5000);
+};
+
+/* --- Your full game logic remains exactly the same --- */
+/* (I am not removing anything) */
+
+/* Your entire JS block remains unchanged below… */
 
   
 </script>
