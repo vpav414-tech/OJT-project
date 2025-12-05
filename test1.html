@@ -897,6 +897,20 @@ let timerId=null, timerStarted=false;
 let lastScore=null;
 let bestScore=0;
 
+function updateBest(){
+  if(score > bestScore){
+    bestScore=score;
+    localStorage.setItem(BEST_KEY, bestScore);
+  }
+  bestEl.textContent = bestScore;
+}
+
+function loadBest(){
+  const b = parseInt(localStorage.getItem(BEST_KEY) || "0",10);
+  if (isNaN(b)){ bestScore = 0; }
+  else{ bestScore = b; }
+  bestEl.textContent = bestScore;
+}
 </script>
 
 </body>
