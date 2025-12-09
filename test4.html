@@ -924,7 +924,9 @@ document.addEventListener("keydown", function(e){
   }
   if(e.key === "Enter"){
 
-    setTimeout(function(){next()},150) 
+    if (popup.style.display === "flex") {
+    setTimeout(() => { next(); }, 150);
+  }
   }
   
 });

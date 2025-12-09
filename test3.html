@@ -1017,8 +1017,11 @@ document.addEventListener("keydown", function(e){
     setTimeout(function(){reset()},150) 
   }
   if(e.key === "Enter"){
-
-    setTimeout(function(){next()},150) 
+     if (popup.style.display === "flex") {
+    setTimeout(() => { next(); }, 150);
+  }
+     
+    // setTimeout(function(){next()},150) 
   }
   
 });
