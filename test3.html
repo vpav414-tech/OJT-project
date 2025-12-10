@@ -976,16 +976,17 @@ function handleThemeSearch(){
   if(text === "f" || text === "fr" || text === "fru" ||text ==="frui"| text === "fruit"){
     suggestionBox.style.display = "block";
     suggestionBox.textContent = "fruit";
-    suggestionBox.addEventListener("click",function(){applyTheme("fruit")}) };
+    suggestionBox.addEventListener("click",function(){applyTheme("fruit")})
     return;
+  }
   
 
   if(text === "e" || text === "em" || text === "emo" || text === "emoji"){
     suggestionBox.style.display = "block";
     suggestionBox.textContent = "emoji";
-    suggestionBox.addEventListener("click",function(){"emoji"}) 
+    suggestionBox.addEventListener("click",function(){applyTheme("emoji")}) 
     return;
-  };
+  }
   
 
   suggestionBox.style.display = "none";
