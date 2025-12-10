@@ -236,15 +236,15 @@ select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padd
 <body>
 
 <!-- key bindings help -->
-<div id="key-help" role="status" aria-live="polite" aria-atomic="true">
+<div id="key-help">
   <strong>KEY BINDINGS</strong>
   <div>S → Open Settings • C → Close Settings</div>
   <div>D → Open Difficulty • ENTER → Start Game</div>
 </div>
 
 <div class="container">
-  <button class="key-btn" aria-label="Show key bindings" onclick="showKeyHelp()">⌨</button>
-  <button class="settings" onclick="openset();playClick()" aria-label="Settings">⚙</button>
+  <button class="key-btn" onclick="showKeyHelp()">⌨</button>
+  <button class="settings" onclick="openset();playClick()">⚙</button>
 
   <div id="setting-popup">
     <div class="box">
@@ -328,7 +328,7 @@ function playClick(){
 }
 
 
-
+//key binding show popup
 const help = document.getElementById("key-help");
 
 function showKeyHelp(){
@@ -341,11 +341,7 @@ window.onload = () => {
   setTimeout(() => help.classList.remove("show"), 5000);
 };
 
-/* --- Your full game logic remains exactly the same --- */
-/* (I am not removing anything) */
-
-/* Your entire JS block remains unchanged below… */
-
+//key Bindings
 document.addEventListener("keydown", function(e){
 
 
