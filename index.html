@@ -300,13 +300,32 @@ select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padd
 function openset(){ document.getElementById('setting-popup').style.display='flex'; }
 function closeset(){ document.getElementById('setting-popup').style.display='none'; }
 
-const music = document.getElementById('bg-music');
-const musicCheckbox = document.getElementById('music-checkbox');
-musicCheckbox.addEventListener('change', ()=> musicCheckbox.checked ? music.play().catch(()=>{}) : music.pause());
+/* -----------------------------------------------------
+   SOUND SYSTEM
+   ----------------------------------------------------- */
 
-const clickSound = document.getElementById('clickSound');
-const ss = document.getElementById('ss');
-function playClick(){ if(ss && ss.checked){ try{ clickSound.currentTime=0 }catch{} clickSound.play().catch(()=>{}); } }
+let music = document.getElementById("bg-music");
+let musicCheckbox = document.getElementById("music-checkbox");
+
+musicCheckbox.addEventListener('change', function(){
+  if (musicCheckbox.checked) {
+    music.play();
+  } else {
+    music.pause();
+  
+  }
+
+})
+const clickSound =document.getElementById("clickSound")
+const ss = document.getElementById("ss")
+function playClick(){
+  if(ss.checked){
+    clickSound.play()
+  }
+  else { 
+    clickSound.pause()
+  }
+}
 
 
 
