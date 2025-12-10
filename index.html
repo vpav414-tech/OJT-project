@@ -283,7 +283,7 @@ select{background:linear-gradient(45deg,#18197b,transparent);font-size:14px;padd
   playClick();
   setTimeout(()=> {
     const diff = document.getElementById('difficulty').value;
-    if(!diff){ 
+    if(diff==""){ 
       const errorMsg = document.getElementById('error-msg');
       errorMsg.style.display = 'block';
       setTimeout(() => {
