@@ -918,7 +918,7 @@ function startGame(){
   timerEl.textContent = time;
   shuffleCards();
   cards.forEach(c=>{
-    c.classList.remove("flipped","wrong");
+    c.classList.remove("flipped");
     c.onclick = flip;
   });
 }
@@ -978,11 +978,9 @@ function checkMatch(){
     if(matched === cards.length) win();
   }else{
     score = Math.max(0, score - 5);
-    first.classList.add("wrong");
-    second.classList.add("wrong");
     setTimeout(()=>{
-      first.classList.remove("flipped","wrong");
-      second.classList.remove("flipped","wrong");
+      first.classList.remove("flipped");
+      second.classList.remove("flipped");
       resetTurn();
     },600);
   }
